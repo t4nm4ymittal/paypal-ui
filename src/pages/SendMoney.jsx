@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../stylesheets/sendMoney.scss';
-
+import API_CONFIG from '../config/api';
 const SendMoney = () => {
   const [formData, setFormData] = useState({
     receiverId: '',
@@ -24,7 +24,7 @@ const SendMoney = () => {
   const fetchUsers = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:8089/api/users', {
+      const response = await fetch(`${API_CONFIG.USER_URL}/api/users`, {
         headers: {
           
           'Content-Type': 'application/json'
@@ -46,7 +46,7 @@ const SendMoney = () => {
       const tokenPayload = JSON.parse(atob(token.split('.')[1]));
       const userId = tokenPayload.userId;
       
-      const response = await fetch(`http://localhost:8080/api/transactions/user/${userId}`, {
+      const response = await fetch(`${API_CONFIG.BASE_URL}/api/transactions/user/${userId}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -68,7 +68,7 @@ const SendMoney = () => {
   const fetchUserRewards = async (userId) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:8088/api/rewards/user/${userId}`, {
+      const response = await fetch(`${API_CONFIG.REWARD_URL}/api/rewards/user/${userId}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'

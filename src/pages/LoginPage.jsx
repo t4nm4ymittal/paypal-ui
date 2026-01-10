@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext"; 
 import "../stylesheets/styles.scss";
-
+import API_CONFIG from '../config/api';
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,7 +14,7 @@ function LoginPage() {
     const payload = { email, password };
   
     try {
-      const response = await fetch("http://localhost:8080/auth/login", {
+      const response = await fetch(`${API_CONFIG.BASE_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

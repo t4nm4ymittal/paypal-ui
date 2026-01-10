@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../stylesheets/dashboard.scss';
 import { useNavigate } from "react-router-dom";
+import API_CONFIG from '../config/api';
 
 const Dashboard = () => {
   const [user, setUser] = useState(null);
@@ -48,7 +49,7 @@ const Dashboard = () => {
       }
 
       // Fetch user data
-      const userRes = await fetch(`http://localhost:8089/api/users/${userId}`, {
+      const userRes = await fetch(`${API_CONFIG.USER_URL}/api/users/${userId}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -62,7 +63,7 @@ const Dashboard = () => {
       setUser(userData);
 
       // Fetch wallet balance
-      const walletRes = await fetch(`http://localhost:8093/api/v1/wallets/${userId}`, {
+      const walletRes = await fetch(`${API_CONFIG.WALLET_URL}/api/v1/wallets/${userId}`, {
         headers: {
           
           'Content-Type': 'application/json'
@@ -77,7 +78,7 @@ const Dashboard = () => {
       }
 
       // Fetch recent transactions
-      const transactionsRes = await fetch(`http://localhost:8080/api/transactions/user/${userId}`, {
+      const transactionsRes = await fetch(`${API_CONFIG.BASE_URL}/api/transactions/user/${userId}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -95,7 +96,7 @@ const Dashboard = () => {
       // Fetch notifications from correct port (8084)
       let userNotifications = [];
       try {
-        const notificationsRes = await fetch(`http://localhost:8088/api/notifications/${userId}`, {
+        const notificationsRes = await fetch(`${API_CONFIG.NOTIFICATION_URL}/api/notifications/${userId}`, {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
@@ -115,7 +116,7 @@ const Dashboard = () => {
       // Fetch rewards from correct port (8083)
       let rewardsCount = 0;
       try {
-        const rewardsRes = await fetch(`http://localhost:8083/api/rewards/user/${userId}`, {
+        const rewardsRes = await fetch(`${API_CONFIG.REWARD_URL}/api/rewards/user/${userId}`, {
           headers: {
             
             'Content-Type': 'application/json'
@@ -155,7 +156,7 @@ const Dashboard = () => {
       const tokenPayload = JSON.parse(atob(token.split('.')[1]));
       const userId = tokenPayload.userId;
 
-      const response = await fetch(`http://localhost:8088/api/notifications/${userId}`, {
+      const response = await fetch(`${API_CONFIG.NOTIFICATION_URL}/api/notifications/${userId}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'

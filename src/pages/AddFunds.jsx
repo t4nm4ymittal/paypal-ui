@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import API_CONFIG from '../config/api'; // Import the API config
 import '../stylesheets/sendMoney.scss';
 
 const AddFunds = () => {
@@ -25,9 +26,9 @@ const AddFunds = () => {
       const tokenPayload = JSON.parse(atob(token.split('.')[1]));
       const userId = tokenPayload.userId;
       
-      const response = await fetch(`http://localhost:8093/api/v1/wallets/${userId}`, {
+      // Replace hardcoded URL with API_CONFIG.WALLET_URL
+      const response = await fetch(`${API_CONFIG.WALLET_URL}/api/v1/wallets/${userId}`, {
         headers: {
-          
           'Content-Type': 'application/json'
         }
       });
@@ -81,11 +82,11 @@ const AddFunds = () => {
         amount: parseFloat(formData.amount)
       };
 
-      const response = await fetch('http://localhost:8093/api/v1/wallets/credit', {
+      // Replace hardcoded URL with API_CONFIG.WALLET_URL
+      const response = await fetch(`${API_CONFIG.WALLET_URL}/api/v1/wallets/credit`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
-         
         },
         body: JSON.stringify(payload)
       });

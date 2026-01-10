@@ -1,5 +1,6 @@
 import React from 'react';
 import '../stylesheets/home.scss';
+import API_CONFIG from '../config/api';
 
 const HomePage = () => {
   const handleGetStarted = () => {
