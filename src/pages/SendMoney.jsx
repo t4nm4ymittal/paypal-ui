@@ -158,7 +158,7 @@ const SendMoney = () => {
       receiverAccountId: parseInt(formData.receiverId),  // Changed from receiverId
       amount: parseFloat(formData.amount)
     };
-      `${API_CONFIG.REWARD_URL}/api/rewards/user/${userId}`
+     
 
       const response = await fetch(`${API_CONFIG.BASE_URL}/api/transactions`, {
         method: 'POST',
